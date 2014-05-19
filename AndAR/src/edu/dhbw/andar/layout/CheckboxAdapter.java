@@ -62,8 +62,9 @@ public class CheckboxAdapter extends BaseAdapter {
 		
 		convertView = mInflater.inflate(R.layout.item, null);
 		viewHolder.imgView = (ImageView) convertView.findViewById(R.id.model_image_3d);
+	  
+	viewHolder.imgView.setBackgroundDrawable(model.getDrawable("models/"+model.getCategory()+"/"+model.getPngName()));
 	   
-	viewHolder.imgView.setBackgroundDrawable(model.getDrawable("models/"+model.getCategory()+"/"+model.getObj_png().getPngFile()));
 	viewHolder.txtView = (TextView) convertView.findViewById(R.id.model_name_3d);
 	viewHolder.txtView.setText((String) listData.get(position).getName());
 		

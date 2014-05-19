@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
-    <string name="app_name">AndAR</string>
-<string name="error_unkown_pixel_format">the camera uses an unkown pixel format.</string><string name="mode_rgb">RGB</string><string name="mode_gray">luminance</string><string name="mode_edges">edges</string><string name="mode_contours">contours</string><string name="mode_bin">binarized</string>
-<string name="description">AndAR is a project that tries to bring Augmented Reality to the android platform.</string>
-<string name="takescreenshot">Take a screenshot.</string>
-<string name="screenshotsaved">Screenshot saved!</string>
-<string name="screenshotfailed">Failed to save screenshot: </string>
-<string name="menu_rotate">Rotate</string>
 
-<string name ="menu_draw">Draw</string>
-<string name="menu_move">Move</string>
-<string name="menu_takePhoto">Photo</string>
-<string name="menu_zoom">Zoom</string>
-<string name="menu_Change_model">Change</string>
- <string
-        name="app_version_info">Version 1.0.0\nDeveloped by Trung Thuc , from UIT. </string>
-<string name ="loading">Loading Model</string>
- 
+    <string name="app_name">AndAR</string>
+    <string name="error_unkown_pixel_format">the camera uses an unkown pixel format.</string>
+    <string name="mode_rgb">RGB</string>
+    <string name="mode_gray">luminance</string>
+    <string name="mode_edges">edges</string>
+    <string name="mode_contours">contours</string>
+    <string name="mode_bin">binarized</string>
+    <string name="description">AndAR is a project that tries to bring Augmented Reality to the android platform.</string>
+    <string name="takescreenshot">Take a screenshot.</string>
+    <string name="screenshotsaved">Screenshot saved!</string>
+    <string name="screenshotfailed">Failed to save screenshot: </string>
+    <string name="menu_rotate">Rotate</string>
+    <string name="menu_draw">Draw</string>
+    <string name="menu_move">Move</string>
+    <string name="menu_takePhoto">Photo</string>
+    <string name="menu_zoom">Zoom</string>
+    <string name="menu_Change_model">Change</string>
+    <string name="app_version_info">Version 1.0.0\nDeveloped by Trung Thuc , from UIT. </string>
+    <string name="loading">Loading Model</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
- 
+
     <string-array name="category">
         <item>architecture</item>
         <item>vehicle</item>
@@ -30,9 +32,18 @@
         <item>aircraft</item>
         <item>Sport</item>
     </string-array>
- 
+
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
- 
-</resources>
+    <string name="status_text_default">Enter the URL of the file to download.</string>
+    <string name="progress_dialog_title_downloading">Downloading...</string>
+    <string name="progress_dialog_title_connecting">Connecting...</string>
+    <string name="progress_dialog_message_prefix_downloading">Downloading file</string>
+    <string name="progress_dialog_message_prefix_connecting">Connecting to</string>
+    <string name="user_message_download_complete">Download complete!</string>
+    <string name="user_message_download_canceled">Download canceled!</string>
+    <string name="error_message_bad_url">Error: Invalid URL!</string>
+    <string name="error_message_file_not_found">Error: File not found!</string>
+    <string name="error_message_general">Error downloading file!</string>
 
+</resources>

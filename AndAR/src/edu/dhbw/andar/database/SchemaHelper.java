@@ -2,6 +2,7 @@ package edu.dhbw.andar.database;
 
 import edu.dhbw.andar.models.JsonModel;
 import edu.dhbw.andar.models.Model3DPhoto;
+import edu.dhbw.andar.models.OBJ_PNG;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -37,8 +38,10 @@ public class SchemaHelper extends SQLiteOpenHelper {
 				+ "AUTOINCREMENT, "
 				+StorageFileTable.NAME + " TEXT, "
 				+StorageFileTable.CATEGORY + " TEXT, "
-				+StorageFileTable.CATEGORY_PATH + " TEXT, "
-				+StorageFileTable.PNG_FILE +" TEXT ) ;"); 
+				+StorageFileTable.PNG_FILE + " TEXT, "
+				+StorageFileTable.OBJ_FILE + " TEXT, "
+				
+				+StorageFileTable.CATEGORY_PATH +" TEXT ) ;"); 
 				
 		
 	}
@@ -58,12 +61,13 @@ public class SchemaHelper extends SQLiteOpenHelper {
 		SQLiteDatabase sd = getWritableDatabase();
 		sd.insert(ModelTable.TABLE_NAME, null, cv);
 	}
-	public void addStorageModel(Model3DPhoto model) {
+	public void addStorageModel(String name,String category,OBJ_PNG OP) {
 		ContentValues cv = new ContentValues();
-		cv.put(StorageFileTable.NAME, model.getName());
-		cv.put(StorageFileTable.CATEGORY, model.getCategory());
-		cv.put(StorageFileTable.PNG_FILE, model.getObj_png().getPngFile());
-		cv.put(StorageFileTable.CATEGORY_PATH, "models/"+model.getCategory());
+		cv.put(StorageFileTable.NAME, name);
+		cv.put(StorageFileTable.CATEGORY, category);
+		cv.put(StorageFileTable.PNG_FILE, OP.getPngFile());
+		cv.put(StorageFileTable.OBJ_FILE, OP.getObjFile());
+		cv.put(StorageFileTable.CATEGORY_PATH, "models/"+category);
 		SQLiteDatabase sd = getWritableDatabase();
 		sd.insert(StorageFileTable.TABLE_NAME, null, cv);
 	}

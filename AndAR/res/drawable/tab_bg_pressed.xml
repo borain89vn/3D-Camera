@@ -15,7 +15,8 @@
      <item >
         <bitmap
             android:gravity="right"
-            
+            android:id="@+id/bitmap_hinden"
+            android:dither="false"
             android:src="@drawable/arrow_down" />
     </item>
 </layer-list>
