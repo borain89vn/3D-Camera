@@ -1,0 +1,43 @@
+# Blender MTL File: 'None'
+# Material Count: 4
+newmtl Cr.nk
+Ns 227.450980
+Ka 0.000000 0.000000 0.000000
+Kd 0.102057 0.101114 0.101114
+Ks 0.916826 0.916826 0.916826
+Ni 1.000000
+d 1.000000
+illum 2
+
+
+newmtl Material
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+
+
+newmtl glasstransparent
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+
+
+newmtl white_wood_butcherblock_tile_butcherblock_tileable.jpg
+Ns 0.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.628518 0.630514 0.640000
+Ks 0.090000 0.090000 0.090000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd butcherblock_tileable.jpg
+
+

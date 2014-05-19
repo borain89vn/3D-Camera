@@ -1,0 +1,68 @@
+# Blender MTL File: 'None'
+# Material Count: 6
+newmtl Couvercle_1_Couvercle_1Surface_Color.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 1.000000 1.000000 1.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd Couvercle_1Surface_Color.jpg
+
+
+newmtl Couvercle_2_Couvercle_2Surface_Color.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 1.000000 1.000000 1.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd Couvercle_2Surface_Color.jpg
+
+
+newmtl case_caseSurface_Color.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 1.000000 1.000000 1.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd caseSurface_Color.jpg
+
+
+newmtl ecrand_image_ecrand_imageSurface_Color.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 1.000000 1.000000 1.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd ecrand_imageSurface_Color.jpg
+
+
+newmtl ecrandcintour_ecrandcintourSurface_Color.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 1.000000 1.000000 1.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd ecrandcintourSurface_Color.jpg
+
+
+newmtl pied_piedSurface_Color.jpg
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 1.000000 1.000000 1.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd piedSurface_Color.jpg
+
+

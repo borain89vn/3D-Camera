@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item 
+    android:id="@+id/menu_move"
+    android:title="Move">
+    
+    </item>
+    <item android:id="@+id/menu_rotate"
+        android:title ="Rotate">
+     </item>   
+    <item 
+        android:id="@+id/menu_zoom"
+        android:title="Zom">
+        </item>
+        <item 
+        android:id="@+id/menu_lift"
+        android:title="Lift">
+        </item>
+    <item 
+        android:id="@+id/menu_exit"
+        android:title="Exit">
+        </item>
+</menu>

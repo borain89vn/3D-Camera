@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    
+   <item 
+    android:id="@+id/menu_dance_move"
+    android:title="Move">
+    
+    </item>
+    <item android:id="@+id/menu_dance_rotate"
+        android:title ="Rotate">
+     </item>   
+    <item 
+        android:id="@+id/menu_dance_fall"
+        android:title="Fall">
+        </item>
+        <item 
+        android:id="@+id/menu_dance_jump"
+        android:title="Jump">
+        </item>
+    <item 
+        android:id="@+id/menu_dance_stop"
+        android:title="Stop">
+        </item>
+</menu>

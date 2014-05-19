@@ -1,0 +1,12 @@
+# Blender MTL File: 'None'
+# Material Count: 1
+newmtl MusicNote
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.717663 0.055682 0.101410
+Ks 0.650000 0.650000 0.650000
+Ni 1.000000
+d 1.000000
+illum 2
+
+

@@ -1,0 +1,14 @@
+# Blender MTL File: 'None'
+# Material Count: 1
+newmtl max_max-textur-end.tga
+Ns 0.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.900000 0.900000 0.900000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd max-textur-end.jpg
+map_d max-textur-end.jpg
+
+

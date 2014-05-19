@@ -1,0 +1,54 @@
+# Blender MTL File: 'None'
+# Material Count: 5
+newmtl emit_white_off
+Ns 617.647059
+Ka 0.000000 0.000000 0.000000
+Kd 0.512000 0.512000 0.512000
+Ks 0.367138 0.367138 0.367138
+Ni 1.000000
+d 1.000000
+illum 2
+
+
+newmtl lampshade_off_pantall_pantalla_color.jpg_pantalla_color.jpg
+Ns 45.098039
+Ka 0.000000 0.000000 0.000000
+Kd 0.483890 0.473851 0.281098
+Ks 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd pantalla_color.jpg
+
+
+newmtl metal_brush_pulido2.j_pulido2.jpg_pulido2.jpg
+Ns 90.196078
+Ka 0.000000 0.000000 0.000000
+Kd 0.480877 0.480877 0.480877
+Ks 0.250000 0.250000 0.250000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd pulido2.jpg
+
+
+newmtl plastic
+Ns 149.019608
+Ka 0.000000 0.000000 0.000000
+Kd 0.081157 0.081157 0.081157
+Ks 0.299488 0.299488 0.299488
+Ni 1.000000
+d 1.000000
+illum 2
+
+
+newmtl whitesop
+Ns 149.019608
+Ka 0.000000 0.000000 0.000000
+Kd 0.477160 0.477160 0.477160
+Ks 0.462611 0.462611 0.462611
+Ni 1.000000
+d 1.000000
+illum 2
+
+
