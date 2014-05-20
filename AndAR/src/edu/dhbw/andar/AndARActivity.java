@@ -21,6 +21,7 @@ package edu.dhbw.andar;
 
 import java.io.IOException;
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
@@ -67,9 +68,15 @@ public abstract class AndARActivity extends Activity implements Callback, Uncaug
 	private boolean startPreviewRightAway;
 	Display display ;
 	float leftMarginCenter;
-	
+	public  ImageView[] imageView;
+	public  Button[] ButtonMenu;
+	// bitmap texture for customObject
+	public  Bitmap []b=new Bitmap[10];
+	//2d picture
+	public  ImageView[] imageView2;
 	private String[] nameButtonMenu={"Animate","Motion","Off","Option","Exit"};
-	
+	public List<Integer> getModelFromActivityParent;
+	public List<Integer> getPictureFromActivityParent;
 	public AndARActivity() {
 		startPreviewRightAway = true;
 	}
@@ -80,20 +87,26 @@ public abstract class AndARActivity extends Activity implements Callback, Uncaug
 
 	int numberImage;
 	int numberImage2d;
+	public Bundle bundle;
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Thread.currentThread().setUncaughtExceptionHandler(this);
         res = getResources();
-     numberImage=  ListView_CheckBoxActivity.picture_3D_Choosed.size();
-     numberImage2d=  ListView_CheckBoxActivity.picture_2D_Choosed.size();
+        bundle = getIntent().getExtras();
+        if(bundle!=null) {
+        getModelFromActivityParent=  bundle.getIntegerArrayList("picture_3d_choose");
+        getPictureFromActivityParent = bundle.getIntegerArrayList("picture_2d_choose");
+     numberImage=   getModelFromActivityParent.size();
+     numberImage2d=  getPictureFromActivityParent.size();
+        }
      //AugmentedModelViewerActivity params
      
-     AugmentedModelViewerActivity.imageView=new ImageView[numberImage];
+     imageView=new ImageView[numberImage];
    
-     AugmentedModelViewerActivity.ButtonMenu=new Button[5];
-     AugmentedModelViewerActivity.imageView2=new ImageView[numberImage2d];
+     ButtonMenu=new Button[5];
+     imageView2=new ImageView[numberImage2d];
 
         artoolkit = new ARToolkit(res, getFilesDir());
         setFullscreen();
@@ -383,7 +396,7 @@ public abstract class AndARActivity extends Activity implements Callback, Uncaug
         int buttonWidth=(int)(screenWidth-10)/5;
         for(int i=0;i<5;i++)
         {
-        	AugmentedModelViewerActivity.ButtonMenu[i]=new Button(this);
+        	ButtonMenu[i]=new Button(this);
         	RelativeLayout.LayoutParams params=new RelativeLayout.LayoutParams(buttonWidth-5,45);
         	params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         	 params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
@@ -399,13 +412,13 @@ public abstract class AndARActivity extends Activity implements Callback, Uncaug
             		params.leftMargin=buttonWidth*i+8;
             	
         	
-        	AugmentedModelViewerActivity.ButtonMenu[i].setLayoutParams(params);
-        	AugmentedModelViewerActivity.ButtonMenu[i].setText(nameButtonMenu[i]);
-        	AugmentedModelViewerActivity.ButtonMenu[i].setTextColor(Color.WHITE);
-        	AugmentedModelViewerActivity.ButtonMenu[i].setBackgroundResource(R.drawable.button_press);
-        	AugmentedModelViewerActivity.ButtonMenu[i].setId(i);
-        	AugmentedModelViewerActivity.ButtonMenu[i].setVisibility(View.INVISIBLE);
-        	layout1.addView(AugmentedModelViewerActivity.ButtonMenu[i]);
+        	ButtonMenu[i].setLayoutParams(params);
+        	ButtonMenu[i].setText(nameButtonMenu[i]);
+        	ButtonMenu[i].setTextColor(Color.WHITE);
+        	ButtonMenu[i].setBackgroundResource(R.drawable.button_press);
+        	ButtonMenu[i].setId(i);
+        	ButtonMenu[i].setVisibility(View.INVISIBLE);
+        	layout1.addView(ButtonMenu[i]);
         }
         frame.addView(layout1);
 		
@@ -422,7 +435,7 @@ public abstract class AndARActivity extends Activity implements Callback, Uncaug
       
 		for(int i=0;i<numberImage;i++)
 		{
-			AugmentedModelViewerActivity.imageView[i]=new ImageView(this);
+			imageView[i]=new ImageView(this);
 			RelativeLayout.LayoutParams params=new RelativeLayout.LayoutParams(70,70);
 			//params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 			params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
@@ -439,12 +452,12 @@ public abstract class AndARActivity extends Activity implements Callback, Uncaug
 			
 			
 	
-			AugmentedModelViewerActivity.imageView[i].setLayoutParams(params);
+			imageView[i].setLayoutParams(params);
 			
 			
-			AugmentedModelViewerActivity.imageView[i].setId(i);
+			imageView[i].setId(i);
 		
-			layout1.addView(AugmentedModelViewerActivity.imageView[i]);
+			layout1.addView(imageView[i]);
 			
 			
 		}
@@ -468,7 +481,7 @@ public abstract class AndARActivity extends Activity implements Callback, Uncaug
       
 		for(int i=0;i<numberImage2d;i++)
 		{
-			AugmentedModelViewerActivity.imageView2[i]=new ImageView(this);
+			imageView2[i]=new ImageView(this);
 			RelativeLayout.LayoutParams params=new RelativeLayout.LayoutParams(50,50);
 			//params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 			params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
@@ -484,15 +497,15 @@ public abstract class AndARActivity extends Activity implements Callback, Uncaug
 			
 			
 	
-			AugmentedModelViewerActivity.imageView2[i].setLayoutParams(params);
+			imageView2[i].setLayoutParams(params);
 			
 			
-			AugmentedModelViewerActivity.imageView2[i].setId(i+5);
+			imageView2[i].setId(i+5);
 			
 			
 			//AugmentedModelViewerActivity.imageView2[i].setBackgroundResource(ListView_CheckBoxActivity.model_2D_Picture[ListView_CheckBoxActivity.picture_2D_Choosed.get(i)]);
-			AugmentedModelViewerActivity.imageView2[i].setVisibility(View.INVISIBLE);
-			layout1.addView(AugmentedModelViewerActivity.imageView2[i]);
+			imageView2[i].setVisibility(View.INVISIBLE);
+			layout1.addView(imageView2[i]);
 			
 			
 		}

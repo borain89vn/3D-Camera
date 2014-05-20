@@ -3,7 +3,7 @@ package edu.dhbw.andar.layout;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.app.TabActivity;
@@ -76,10 +76,10 @@ public class ListView_CheckBoxActivity extends TabActivity implements
 	
 	public static String[] name_2D_Picture = { "texture1", "texture2",
 			"texture3", "texture4", "texture5", "texture6", "texture7" };
-	public static List<Integer> picture_3D_Choosed;
-	public static List<Integer> picture_2D_Choosed;
-	public static List<String> namePicture_2D_Choosed;
-	public static List<String> namePicture_3D_Choosed;
+	public  List<Integer> picture_3D_Choosed;
+	public  List<Integer> picture_2D_Choosed;
+	public  List<String> namePicture_2D_Choosed;
+	public  List<String> namePicture_3D_Choosed;
 	int lenghtPicture;
 	ImageButton imgContinue;
 	ImageButton imgDownload;
@@ -92,6 +92,7 @@ public class ListView_CheckBoxActivity extends TabActivity implements
 	ArrayList<Model3DPhoto> listModel3DPhoto;
 	AlertDialog alert;
 	SchemaHelper sHelper;
+	@SuppressLint("NewApi")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -188,26 +189,26 @@ public class ListView_CheckBoxActivity extends TabActivity implements
 				HashMap<Integer, Boolean> state = listItemAdapter.state;
 
 				HashMap<Integer, Boolean> state2 = listItemAdapter2.state;
+				Model3DPhoto a;
+				a= (Model3DPhoto) listItemAdapter.getItem(0);
 
 				for (int j = 0; j < listItemAdapter.getCount(); j++) {
 
 					if (state.get(j) != null) {
 						@SuppressWarnings("unchecked")
-						HashMap<String, Object> map = (HashMap<String, Object>) listItemAdapter
-								.getItem(j);
-
-						namePicture_3D_Choosed.add(map.get("model_name_3d")
-								.toString());
+						Model3DPhoto model = (Model3DPhoto) listItemAdapter.getItem(j);
+								
+						namePicture_3D_Choosed.add(model.getName());
+								
 						picture_3D_Choosed.add(j);
 
 					}
 					if (state2.get(j) != null) {
 						@SuppressWarnings("unchecked")
-						HashMap<String, Object> map = (HashMap<String, Object>) listItemAdapter2
-								.getItem(j);
+						Model3DPhoto model = (Model3DPhoto) listItemAdapter2.getItem(j);
 
-						namePicture_2D_Choosed.add(map.get("model_name_2d")
-								.toString());
+						namePicture_2D_Choosed.add(model.getName());
+								
 						picture_2D_Choosed.add(j);
 					}
 
@@ -221,7 +222,8 @@ public class ListView_CheckBoxActivity extends TabActivity implements
 				final Intent intent = new Intent(
 						ListView_CheckBoxActivity.this,
 						AugmentedModelViewerActivity.class);
-				// intent.putExtras(b);
+				intent.putIntegerArrayListExtra("picture_3d_choose", (ArrayList<Integer>) picture_3D_Choosed);
+				intent.putIntegerArrayListExtra("picture_2d_choose", (ArrayList<Integer>) picture_2D_Choosed);
 				startActivity(intent);
 
 			}

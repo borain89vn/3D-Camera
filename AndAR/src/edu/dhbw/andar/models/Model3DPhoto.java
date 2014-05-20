@@ -3,26 +3,35 @@ package edu.dhbw.andar.models;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 
 import edu.dhbw.andopenglcam.R;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.widget.ImageView;
 
-public class Model3DPhoto {
+public class Model3DPhoto implements Parcelable{
 	private String location;
 	private String category;
 	private String name;
 
 	private String objName;
 	private String pngName;
-	Context contex;
+	public  Context context;
 
-	public Model3DPhoto(Context c) {
-		contex = c;
+	public Model3DPhoto() {
+	
 	}
-
+	
+    public Model3DPhoto(Parcel in) {
+    	category = in.readString();
+    	name = in.readString();
+    	objName = in.readString();
+    	pngName = in.readString();
+    	
+    }
 	public String getCategory() {
 		return category;
 	}
@@ -61,7 +70,7 @@ public class Model3DPhoto {
 		Drawable d = null;
 		try {
 
-			InputStream ims = contex.getAssets().open(path);
+			InputStream ims = context.getAssets().open(path);
 			
 				d = Drawable.createFromStream(ims, null);
 			
@@ -88,4 +97,30 @@ public class Model3DPhoto {
 		this.pngName = pngName;
 	}
 
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		// TODO Auto-generated method stub
+		dest.writeString(name);
+		dest.writeString(category);
+		dest.writeString(objName);
+		dest.writeString(pngName);
+	}
+	public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+		
+        public Model3DPhoto[] newArray(int size) {
+        	return new Model3DPhoto[size];
+        }
+		@Override
+		public Object createFromParcel(Parcel source) {
+			// TODO Auto-generated method stub
+			return new Model3DPhoto(source);
+		}
+	
+	};
 }

@@ -162,15 +162,15 @@ public class AugmentedModelViewerActivity extends AndARActivity implements  Surf
 	String patternName;
 	boolean isrunning =false;
 	public Integer[] pics;
-	public static ImageView[] imageView;
 	
 	
 	
-	public static Button[] ButtonMenu;
+	
+	
 	// bitmap texture for customObject
 	public static Bitmap []b=new Bitmap[10];
 	//2d picture
-	public static ImageView[] imageView2;
+	
 	public static float getCameraWidth;
 
 
@@ -209,8 +209,7 @@ public class AugmentedModelViewerActivity extends AndARActivity implements  Surf
 		super.onCreate(savedInstanceState);
 		super.setNonARRenderer(new LightingRenderer());//or might be omited
 	
-		
-	 	artoolkit = getArtoolkit();	
+			 	artoolkit = getArtoolkit();	
 	 	  rand=new Random();
 	 	 // player=MediaPlayer.create(this, R.raw.testsong_20_sec);
 		    randomHeigh=rand.nextInt(29)+20;
@@ -258,16 +257,17 @@ public class AugmentedModelViewerActivity extends AndARActivity implements  Surf
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		
+	   
 		getXModelRand=new ArrayList<Float>();
 		getYModelRand=new ArrayList<Float>();
 		
 		getModelFromActivity=new ArrayList<Integer>();
 		getPictureFromActivity=new ArrayList<Integer>();
 		loadedModel=0;
-		
-			getModelFromActivity=ListView_CheckBoxActivity.picture_3D_Choosed;
-			getPictureFromActivity=ListView_CheckBoxActivity.picture_2D_Choosed;
+		    
+			getModelFromActivity=getModelFromActivityParent;
+			getPictureFromActivity=getPictureFromActivityParent;
+		    
 			numberModel_3D=getModelFromActivity.size();
 			numberMode_2D=getPictureFromActivity.size();
 		     saveModeDanceModel();

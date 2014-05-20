@@ -25,7 +25,8 @@ public class StorageFileTable {
 		SQLiteDatabase sqlWriter = helper.getWritableDatabase();
 		Cursor c = sqlWriter.rawQuery(sql, null);
 		while (c.moveToNext()) {
-			Model3DPhoto model = new Model3DPhoto(context);
+			Model3DPhoto model = new Model3DPhoto();
+			model.context = context;
 			model.setCategory(c.getString(c.getColumnIndex(CATEGORY)));
 			model.setName(c.getString(c.getColumnIndex(NAME)));
 			model.setObjName(c.getString(c.getColumnIndex(OBJ_FILE)));

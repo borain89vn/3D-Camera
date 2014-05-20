@@ -22,7 +22,7 @@
     	              android:normalScreens="true"
         	          android:largeScreens="true" 
             	      android:anyDensity="true" />
-    <uses-sdk android:targetSdkVersion="17" android:minSdkVersion="11"/>
+    <uses-sdk android:targetSdkVersion="17" android:minSdkVersion="4"/>
 
 
 </manifest> 
