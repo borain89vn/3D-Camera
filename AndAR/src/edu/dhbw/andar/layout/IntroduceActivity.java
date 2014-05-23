@@ -6,13 +6,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.animation.Animation;
-import android.view.animation.LayoutAnimationController;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import edu.dhbw.andar.pub.AugmentedModelViewerActivity;
 import edu.dhbw.andopenglcam.R;
 
 public class IntroduceActivity extends Activity{

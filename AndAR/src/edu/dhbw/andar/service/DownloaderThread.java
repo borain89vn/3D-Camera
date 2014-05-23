@@ -38,11 +38,10 @@ import java.net.URLConnection;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import edu.dhbw.andar.layout.ListView_CheckBoxActivity;
-import edu.dhbw.andopenglcam.R;
-import android.app.Activity;
 import android.os.Environment;
 import android.os.Message;
+import edu.dhbw.andar.layout.ListView_CheckBoxActivity;
+import edu.dhbw.andopenglcam.R;
 
 /**
  * Downloads a file in a thread. Will send messages to the

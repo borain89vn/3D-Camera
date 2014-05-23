@@ -47,8 +47,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import edu.dhbw.andar.exceptions.AndARRuntimeException;
 import edu.dhbw.andar.interfaces.OpenGLRenderer;
-import edu.dhbw.andar.layout.ListView_CheckBoxActivity;
-import edu.dhbw.andar.pub.AugmentedModelViewerActivity;
+import edu.dhbw.andar.models.Model3DPhoto;
 import edu.dhbw.andar.util.IO;
 import edu.dhbw.andopenglcam.R;
 
@@ -77,6 +76,7 @@ public abstract class AndARActivity extends Activity implements Callback, Uncaug
 	private String[] nameButtonMenu={"Animate","Motion","Off","Option","Exit"};
 	public List<Integer> getModelFromActivityParent;
 	public List<Integer> getPictureFromActivityParent;
+	public List<Model3DPhoto> listMode3DPhoto;
 	public AndARActivity() {
 		startPreviewRightAway = true;
 	}
@@ -100,6 +100,7 @@ public abstract class AndARActivity extends Activity implements Callback, Uncaug
         getPictureFromActivityParent = bundle.getIntegerArrayList("picture_2d_choose");
      numberImage=   getModelFromActivityParent.size();
      numberImage2d=  getPictureFromActivityParent.size();
+     listMode3DPhoto = bundle.getParcelableArrayList("model_3d_photo");
         }
      //AugmentedModelViewerActivity params
      

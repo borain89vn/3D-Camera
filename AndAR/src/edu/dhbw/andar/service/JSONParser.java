@@ -21,10 +21,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import edu.dhbw.andar.models.JsonModel;
-import edu.dhbw.andar.pub.ListModelActivity;
-
 import android.util.Log;
+import edu.dhbw.andar.models.JsonModel;
 
 public class JSONParser {
 	

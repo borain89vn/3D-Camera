@@ -3,14 +3,11 @@ package edu.dhbw.andar.models;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
 
-import edu.dhbw.andopenglcam.R;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.widget.ImageView;
 
 public class Model3DPhoto implements Parcelable{
 	private String location;
@@ -106,8 +103,8 @@ public class Model3DPhoto implements Parcelable{
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		// TODO Auto-generated method stub
-		dest.writeString(name);
 		dest.writeString(category);
+		dest.writeString(name);
 		dest.writeString(objName);
 		dest.writeString(pngName);
 	}

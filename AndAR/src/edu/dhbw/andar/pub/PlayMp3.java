@@ -1,10 +1,9 @@
 package edu.dhbw.andar.pub;
 
-import edu.dhbw.andar.ARToolkit;
-import edu.dhbw.andopenglcam.R;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
+import edu.dhbw.andopenglcam.R;
 
 public class PlayMp3 {
   

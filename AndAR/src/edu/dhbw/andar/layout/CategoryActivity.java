@@ -1,8 +1,8 @@
 package edu.dhbw.andar.layout;
 
-import edu.dhbw.andopenglcam.R;
 import android.app.Activity;
 import android.os.Bundle;
+import edu.dhbw.andopenglcam.R;
 
 
 

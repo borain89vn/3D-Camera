@@ -6,8 +6,6 @@ import java.util.regex.Pattern;
 
 import edu.dhbw.andar.graphics.PointXY;
 
-import android.graphics.Point;
-
 public class MarkerInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private static final Pattern REGEX = Pattern.compile("^id=(\\d+):name=(.+):pos\\[0\\]=([\\d.]+):pos\\[1\\]=([\\d.]+)$");

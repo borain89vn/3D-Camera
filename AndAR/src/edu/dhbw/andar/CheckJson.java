@@ -7,14 +7,14 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
-import edu.dhbw.andar.database.SchemaHelper;
-import edu.dhbw.andar.models.JsonModel;
-import edu.dhbw.andar.service.ConstantValue;
-import edu.dhbw.andar.service.JSONParser;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import edu.dhbw.andar.database.SchemaHelper;
+import edu.dhbw.andar.models.JsonModel;
+import edu.dhbw.andar.service.ConstantValue;
+import edu.dhbw.andar.service.JSONParser;
 
 public class CheckJson extends Activity{
 	JSONParser jsonParser = new JSONParser();
@@ -27,7 +27,7 @@ public class CheckJson extends Activity{
 		helper= new SchemaHelper(this);
 		
 		getModel a = new getModel();
-		a.execute();
+		
 		
 	}
 	class getModel extends AsyncTask<Void, Void, Void> {
@@ -36,6 +36,7 @@ public class CheckJson extends Activity{
         protected void onPreExecute() {
             super.onPreExecute();
             // Showing progress dialog
+         
            
  
         }

@@ -1,38 +1,15 @@
 package edu.dhbw.andar.pub;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
 import java.util.Hashtable;
-import java.util.Map;
 
 import android.app.ProgressDialog;
 import android.content.res.Resources;
-import android.hardware.Camera.Size;
 import android.media.SoundPool;
-import android.net.ParseException;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Display;
 import android.view.GestureDetector;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnTouchListener;
-import android.view.WindowManager;
 import edu.dhbw.andar.ARToolkit;
 import edu.dhbw.andar.AndARActivity;
-import edu.dhbw.andar.MarkerInfo;
-import edu.dhbw.andar.exceptions.AndARException;
-import edu.dhbw.andar.graphics.LightingRenderer;
 import edu.dhbw.andar.graphics.Model3D;
 import edu.dhbw.andar.models.Model;
-import edu.dhbw.andar.parser.ObjParser;
-import edu.dhbw.andar.util.AssetsFileUtil;
-import edu.dhbw.andar.util.BaseFileUtil;
-import edu.dhbw.andopenglcam.R;
 
 public class MainARActivity extends AndARActivity {
 	private static final float THRESHOLD = 30.0f;

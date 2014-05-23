@@ -1,13 +1,12 @@
 package edu.dhbw.andar.database;
 
-import edu.dhbw.andar.models.JsonModel;
-import edu.dhbw.andar.models.Model3DPhoto;
-import edu.dhbw.andar.models.OBJ_PNG;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import edu.dhbw.andar.models.JsonModel;
+import edu.dhbw.andar.models.OBJ_PNG;
 
 public class SchemaHelper extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "model_data.db";

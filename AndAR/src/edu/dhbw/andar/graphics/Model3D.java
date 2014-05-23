@@ -28,7 +28,6 @@ import java.util.Vector;
 
 import javax.microedition.khronos.opengles.GL10;
 
-import android.graphics.Point;
 import android.opengl.GLUtils;
 import android.util.Log;
 import edu.dhbw.andar.ARObject;

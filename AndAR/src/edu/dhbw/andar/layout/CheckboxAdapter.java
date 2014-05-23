@@ -13,10 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
-import edu.dhbw.andar.graphics.Model3D;
 import edu.dhbw.andar.models.Model3DPhoto;
-import edu.dhbw.andar.models.OBJ_PNG;
-import edu.dhbw.andar.util.ManageAssetsFile;
 import edu.dhbw.andopenglcam.R;
 
 public class CheckboxAdapter extends BaseAdapter {

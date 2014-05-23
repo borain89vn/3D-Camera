@@ -30,14 +30,10 @@ import java.util.Vector;
 
 import javax.microedition.khronos.opengles.GL10;
 
-
 import android.content.res.Resources;
 import android.util.Log;
-import android.view.View;
 import edu.dhbw.andar.exceptions.AndARException;
-import edu.dhbw.andar.graphics.Model3D;
 import edu.dhbw.andar.interfaces.MarkerVisibilityListener;
-import edu.dhbw.andar.pub.AugmentedModelViewerActivity;
 import edu.dhbw.andar.util.GraphicsUtil;
 import edu.dhbw.andar.util.IO;
 

@@ -1,15 +1,10 @@
 package edu.dhbw.andar.util;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
-import edu.dhbw.andar.models.OBJ_PNG;
-
 import android.content.Context;
-import android.content.res.AssetManager;
-import android.graphics.drawable.Drawable;
-import android.widget.ImageView;
+import edu.dhbw.andar.models.OBJ_PNG;
 
 public class ManageAssetsFile {
 

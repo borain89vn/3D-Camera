@@ -24,8 +24,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Vector;
 
-import android.graphics.Point;
-import edu.dhbw.andar.graphics.PointXY;
 import edu.dhbw.andar.pub.AugmentedModelViewerActivity;
 import edu.dhbw.andar.util.BaseFileUtil;
 

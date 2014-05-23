@@ -4,7 +4,6 @@ import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
 
-
 import edu.dhbw.andar.interfaces.OpenGLRenderer;
 import edu.dhbw.andar.util.GraphicsUtil;
 /**

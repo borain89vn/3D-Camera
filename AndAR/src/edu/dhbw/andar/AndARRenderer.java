@@ -31,18 +31,15 @@ import java.util.concurrent.locks.ReentrantLock;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import edu.dhbw.andar.interfaces.OpenGLRenderer;
-import edu.dhbw.andar.interfaces.PreviewFrameSink;
-
-
-
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.PixelFormat;
 import android.graphics.Bitmap.Config;
+import android.graphics.PixelFormat;
 import android.opengl.GLDebugHelper;
 import android.opengl.GLSurfaceView.Renderer;
 import android.util.Log;
+import edu.dhbw.andar.interfaces.OpenGLRenderer;
+import edu.dhbw.andar.interfaces.PreviewFrameSink;
 
 /**
  * Opens the camera and displays the output on a square (as a texture)
