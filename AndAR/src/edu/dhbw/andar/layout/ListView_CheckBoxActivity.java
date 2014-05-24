@@ -642,33 +642,7 @@ public class ListView_CheckBoxActivity extends TabActivity implements
 			 * urlInput,"furniture"); downloaderThread.start();
 			 */
 			
-			//mDrawerLayout.openDrawer(mDrawerList);
-			options = new DisplayImageOptions.Builder()
-			.showImageOnLoading(R.drawable.ic_stub)
-			.showImageForEmptyUri(R.drawable.ic_empty)
-			.showImageOnFail(R.drawable.ic_error)
-			.cacheInMemory(true)
-			.cacheOnDisk(true)
-			.considerExifParams(true)
-			.bitmapConfig(Bitmap.Config.RGB_565)
-			.build();
-			AlertDialog.Builder  builder = new AlertDialog.Builder(this); ;     
-            Context mContext = this;     
-            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);     
-            View layout = inflater.inflate(R.layout.category_gridview,null,false); 
-               
-            builder.setView(layout);  
-            listView = (GridView)layout.findViewById(R.id.gridview);
-		((GridView) listView).setAdapter(new ImageAdapter());
-		listView.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				//startImagePagerActivity(position);
-			}
-		});
-		   
-		alert = builder.create();
-		alert.show();   
+			mDrawerLayout.openDrawer(mDrawerList);
 		}
 
 	}
@@ -762,5 +736,34 @@ public class ListView_CheckBoxActivity extends TabActivity implements
 			ProgressBar progressBar;
 		}
 	}
+	private void createImageCategoryDialog() {
+		options = new DisplayImageOptions.Builder()
+		.showImageOnLoading(R.drawable.ic_stub)
+		.showImageForEmptyUri(R.drawable.ic_empty)
+		.showImageOnFail(R.drawable.ic_error)
+		.cacheInMemory(true)
+		.cacheOnDisk(true)
+		.considerExifParams(true)
+		.bitmapConfig(Bitmap.Config.RGB_565)
+		.build();
+		AlertDialog.Builder  builder = new AlertDialog.Builder(this); ;     
+        Context mContext = this;     
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);     
+        View layout = inflater.inflate(R.layout.category_gridview,null,false); 
+           
+        builder.setView(layout);  
+        listView = (GridView)layout.findViewById(R.id.gridview);
+	((GridView) listView).setAdapter(new ImageAdapter());
+	listView.setOnItemClickListener(new OnItemClickListener() {
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			//startImagePagerActivity(position);
+		}
+	});
+	   
+	alert = builder.create();
+	alert.show();   
+	}
+	
 }
 
