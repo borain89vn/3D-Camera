@@ -1,11 +1,16 @@
 package edu.dhbw.andar.models;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Environment;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -53,15 +58,9 @@ public class Model3DPhoto implements Parcelable{
 		this.location = location;
 	}
 
-	public void saveToSDCard(int idPhoto) {
+	
+	
 
-		File myDir = new File(this.getLocation());
-		myDir.mkdir();
-		// ImageView view= (ImageView)findViewById(R.id.cachesView);
-
-		// view.buildDrawingCache();
-
-	}
 
 	public Drawable getDrawable(String path) {
 		Drawable d = null;

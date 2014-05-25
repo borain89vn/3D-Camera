@@ -38,50 +38,63 @@ import java.net.URLConnection;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import javax.xml.validation.Schema;
+
 import android.os.Environment;
 import android.os.Message;
+import edu.dhbw.andar.database.SchemaHelper;
 import edu.dhbw.andar.layout.ListView_CheckBoxActivity;
+import edu.dhbw.andar.models.Model3DPhoto;
+import edu.dhbw.andar.models.OBJ_PNG;
 import edu.dhbw.andopenglcam.R;
 
 /**
  * Downloads a file in a thread. Will send messages to the
  * ListView_CheckBoxActivity activity to update the progress bar.
  */
-public class DownloaderThread extends Thread
-{
+public class DownloaderThread extends Thread {
 	// constants
 	private static final int DOWNLOAD_BUFFER_SIZE = 4096;
-	
+
 	// instance variables
 	private ListView_CheckBoxActivity parentActivity;
 	private String downloadUrl;
 	private String catagory;
 	private String outputFolder;
-	private String input =null;
+	private String input = null;
+	public SchemaHelper sHelper;
+	public OBJ_PNG obj_png;
+	public String nameModel;
+
 	/**
 	 * Instantiates a new DownloaderThread object.
-	 * @param parentActivity Reference to ListView_CheckBoxActivity activity.
-	 * @param inUrl String representing the URL of the file to be downloaded.
+	 * 
+	 * @param parentActivity
+	 *            Reference to ListView_CheckBoxActivity activity.
+	 * @param inUrl
+	 *            String representing the URL of the file to be downloaded.
 	 */
-	public DownloaderThread(ListView_CheckBoxActivity inParentActivity, String inUrl,String category)
-	{
+	public DownloaderThread(ListView_CheckBoxActivity inParentActivity,
+			String inUrl, String category, SchemaHelper sHelper,
+			String png, String nameModel) {
 		downloadUrl = "";
-		if(inUrl != null)
-		{
+		if (inUrl != null) {
 			downloadUrl = inUrl;
 		}
 		parentActivity = inParentActivity;
 		this.catagory = category;
+		this.sHelper = sHelper;
+		
+		this.nameModel = nameModel;
 	}
-	
+
 	/**
 	 * Connects to the URL of the file, begins the download, and notifies the
-	 * ListView_CheckBoxActivity activity of changes in state. Writes the file to
-	 * the root of the SD card.
+	 * ListView_CheckBoxActivity activity of changes in state. Writes the file
+	 * to the root of the SD card.
 	 */
 	@Override
-	public void run()
-	{
+	public void run() {
 		URL url;
 		URLConnection conn;
 		int fileSize, lastSlash;
@@ -91,51 +104,49 @@ public class DownloaderThread extends Thread
 		File outFile;
 		FileOutputStream fileStream;
 		Message msg;
-		
+
 		// we're going to connect now
 		msg = Message.obtain(parentActivity.activityHandler,
-				ListView_CheckBoxActivity.MESSAGE_CONNECTING_STARTED,
-				0, 0, downloadUrl);
+				ListView_CheckBoxActivity.MESSAGE_CONNECTING_STARTED, 0, 0,
+				downloadUrl);
 		parentActivity.activityHandler.sendMessage(msg);
-		
-		try
-		{
+
+		try {
 			url = new URL(downloadUrl);
 			conn = url.openConnection();
 			conn.setUseCaches(false);
 			fileSize = conn.getContentLength();
-			
+
 			// get the filename
 			lastSlash = url.toString().lastIndexOf('/');
 			fileName = "file.bin";
-			if(lastSlash >=0)
-			{
+			if (lastSlash >= 0) {
 				fileName = url.toString().substring(lastSlash + 1);
 			}
-			if(fileName.equals(""))
-			{
+			if (fileName.equals("")) {
 				fileName = "file.bin";
 			}
-			
+
 			// notify download start
 			int fileSizeInKB = fileSize / 1024;
 			msg = Message.obtain(parentActivity.activityHandler,
 					ListView_CheckBoxActivity.MESSAGE_DOWNLOAD_STARTED,
 					fileSizeInKB, 0, fileName);
 			parentActivity.activityHandler.sendMessage(msg);
-			
+
 			// start download
-			 input = Environment.getExternalStorageDirectory() +"/" + fileName;
+			input = Environment.getExternalStorageDirectory() + "/" + fileName;
 			inStream = new BufferedInputStream(conn.getInputStream());
 			outFile = new File(input);
 			fileStream = new FileOutputStream(outFile);
-			outStream = new BufferedOutputStream(fileStream, DOWNLOAD_BUFFER_SIZE);
+			outStream = new BufferedOutputStream(fileStream,
+					DOWNLOAD_BUFFER_SIZE);
 			byte[] data = new byte[DOWNLOAD_BUFFER_SIZE];
 			int bytesRead = 0, totalRead = 0;
-			while(!isInterrupted() && (bytesRead = inStream.read(data, 0, data.length)) >= 0)
-			{
+			while (!isInterrupted()
+					&& (bytesRead = inStream.read(data, 0, data.length)) >= 0) {
 				outStream.write(data, 0, bytesRead);
-				
+
 				// update progress bar
 				totalRead += bytesRead;
 				int totalReadInKB = totalRead / 1024;
@@ -144,97 +155,99 @@ public class DownloaderThread extends Thread
 						totalReadInKB, 0);
 				parentActivity.activityHandler.sendMessage(msg);
 			}
-			
+
 			outStream.close();
 			fileStream.close();
 			inStream.close();
-			unZipIt(input, Environment.getExternalStorageDirectory()+"/models/"+this.catagory);
-			if(isInterrupted())
-			{
-				// the download was canceled, so let's delete the partially downloaded file
+			unZipIt(input, Environment.getExternalStorageDirectory()
+					+ "/models/" + this.catagory);
+			if (isInterrupted()) {
+				// the download was canceled, so let's delete the partially
+				// downloaded file
 				outFile.delete();
-			}
-			else
-			{
+			} else {
 				// notify completion
 				msg = Message.obtain(parentActivity.activityHandler,
 						ListView_CheckBoxActivity.MESSAGE_DOWNLOAD_COMPLETE);
 				parentActivity.activityHandler.sendMessage(msg);
+				obj_png = new OBJ_PNG();
+				obj_png.setObjFile(nameModel+".obj");
+				obj_png.setPngFile(nameModel +".png");
+				sHelper.addStorageModel(nameModel,this.catagory, obj_png);
 			}
-		}
-		catch(MalformedURLException e)
-		{
-			String errMsg = parentActivity.getString(R.string.error_message_bad_url);
+		} catch (MalformedURLException e) {
+			String errMsg = parentActivity
+					.getString(R.string.error_message_bad_url);
 			msg = Message.obtain(parentActivity.activityHandler,
-					ListView_CheckBoxActivity.MESSAGE_ENCOUNTERED_ERROR,
-					0, 0, errMsg);
+					ListView_CheckBoxActivity.MESSAGE_ENCOUNTERED_ERROR, 0, 0,
+					errMsg);
+			parentActivity.activityHandler.sendMessage(msg);
+		} catch (FileNotFoundException e) {
+			String errMsg = parentActivity
+					.getString(R.string.error_message_file_not_found);
+			msg = Message.obtain(parentActivity.activityHandler,
+					ListView_CheckBoxActivity.MESSAGE_ENCOUNTERED_ERROR, 0, 0,
+					errMsg);
+			parentActivity.activityHandler.sendMessage(msg);
+		} catch (Exception e) {
+			String errMsg = parentActivity
+					.getString(R.string.error_message_general);
+			msg = Message.obtain(parentActivity.activityHandler,
+					ListView_CheckBoxActivity.MESSAGE_ENCOUNTERED_ERROR, 0, 0,
+					errMsg);
 			parentActivity.activityHandler.sendMessage(msg);
 		}
-		catch(FileNotFoundException e)
-		{
-			String errMsg = parentActivity.getString(R.string.error_message_file_not_found);
-			msg = Message.obtain(parentActivity.activityHandler,
-					ListView_CheckBoxActivity.MESSAGE_ENCOUNTERED_ERROR,
-					0, 0, errMsg);
-			parentActivity.activityHandler.sendMessage(msg); 
-		}
-		catch(Exception e)
-		{
-			String errMsg = parentActivity.getString(R.string.error_message_general);
-			msg = Message.obtain(parentActivity.activityHandler,
-					ListView_CheckBoxActivity.MESSAGE_ENCOUNTERED_ERROR,
-					0, 0, errMsg);
-			parentActivity.activityHandler.sendMessage(msg); 
+	}
+
+	public void unZipIt(String zipFile, String outputFolder) {
+
+		byte[] buffer = new byte[1024];
+
+		try {
+
+			// create output directory is not exists
+			File folder = new File(outputFolder);
+			if (!folder.exists()) {
+				folder.mkdir();
+			}
+
+			// get the zip file content
+			ZipInputStream zis = new ZipInputStream(
+					new FileInputStream(zipFile));
+			// get the zipped file list entry
+			ZipEntry ze = zis.getNextEntry();
+
+			while (ze != null) {
+
+				String fileName = ze.getName();
+				File newFile = new File(outputFolder + File.separator
+						+ fileName);
+
+				System.out.println("file unzip : " + newFile.getAbsoluteFile());
+
+				// create all non exists folders
+				// else you will hit FileNotFoundException for compressed folder
+				new File(newFile.getParent()).mkdirs();
+
+				FileOutputStream fos = new FileOutputStream(newFile);
+
+				int len;
+				while ((len = zis.read(buffer)) > 0) {
+					fos.write(buffer, 0, len);
+				}
+
+				fos.close();
+				ze = zis.getNextEntry();
+			}
+
+			zis.closeEntry();
+			zis.close();
+
+			System.out.println("Done");
+
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
 	}
-	public void unZipIt(String zipFile, String outputFolder){
-		 
-	     byte[] buffer = new byte[1024];
-	 
-	     try{
-	 
-	    	//create output directory is not exists
-	    	File folder = new File(outputFolder);
-	    	if(!folder.exists()){
-	    		folder.mkdir();
-	    	}
-	 
-	    	//get the zip file content
-	    	ZipInputStream zis = 
-	    		new ZipInputStream(new FileInputStream(zipFile));
-	    	//get the zipped file list entry
-	    	ZipEntry ze = zis.getNextEntry();
-	 
-	    	while(ze!=null){
-	 
-	    	   String fileName = ze.getName();
-	           File newFile = new File(outputFolder + File.separator + fileName);
-	 
-	           System.out.println("file unzip : "+ newFile.getAbsoluteFile());
-	 
-	            //create all non exists folders
-	            //else you will hit FileNotFoundException for compressed folder
-	            new File(newFile.getParent()).mkdirs();
-	 
-	            FileOutputStream fos = new FileOutputStream(newFile);             
-	 
-	            int len;
-	            while ((len = zis.read(buffer)) > 0) {
-	       		fos.write(buffer, 0, len);
-	            }
-	 
-	            fos.close();   
-	            ze = zis.getNextEntry();
-	    	}
-	 
-	        zis.closeEntry();
-	    	zis.close();
-	 
-	    	System.out.println("Done");
-	 
-	    }catch(IOException ex){
-	       ex.printStackTrace(); 
-	    }
-	   }    
-	
+
 }
