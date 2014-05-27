@@ -10,7 +10,6 @@
         android:adjustViewBounds="true"
         android:contentDescription="asdas"
         android:scaleType="centerCrop" />
-   
 
     <ProgressBar
         android:id="@+id/progress"

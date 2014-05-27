@@ -105,6 +105,7 @@ public class ListView_CheckBoxActivity extends TabActivity implements
 	int lenghtPicture;
 	ImageButton imgContinue;
 	ImageButton imgDownload;
+	ImageView imgClose;
 	// Button btnBack;
 	private TabHost tabHost;
 
@@ -116,7 +117,7 @@ public class ListView_CheckBoxActivity extends TabActivity implements
     ProgressDialog mPrgressDilog;
 	AlertDialog alert;
 	SchemaHelper sHelper;
-	
+
 	protected AbsListView listView;
 	DisplayImageOptions options;
 	protected ImageLoader imageLoader = ImageLoader.getInstance();
@@ -148,9 +149,18 @@ public class ListView_CheckBoxActivity extends TabActivity implements
 		}
 		imgContinue = (ImageButton) findViewById(R.id.img_next);
 		imgDownload = (ImageButton) findViewById(R.id.img_download);
-
+       
 		imgContinue.setOnClickListener(listener);
 		imgDownload.setOnClickListener(this);
+		listView1.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 
 		ArrayList<HashMap<String, Object>> listData2 = new ArrayList<HashMap<String, Object>>();
 
@@ -199,8 +209,8 @@ public class ListView_CheckBoxActivity extends TabActivity implements
 						// }
 					}
 				});
-		
-		
+
+
 	}
 
 	OnClickListener listener = new OnClickListener() {
@@ -376,7 +386,7 @@ public class ListView_CheckBoxActivity extends TabActivity implements
 	private void initAdapter(String category) {
 		listModel3DPhoto = StorageFileTable.getModelByCategory(sHelper,
 				category, this);
-		listItemAdapter = new CheckboxAdapter(this, listModel3DPhoto);
+		listItemAdapter = new CheckboxAdapter(this, listModel3DPhoto,sHelper);
 		listView1.setAdapter(listItemAdapter);
 	}
 
@@ -538,11 +548,15 @@ public class ListView_CheckBoxActivity extends TabActivity implements
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		if (v.getId() == R.id.img_download) {
-			
-			
+		switch(v.getId())
+		{ case R.id.img_download:
 			mDrawerLayout.openDrawer(mDrawerList);
+			break;
+		case R.id.close:
+			alert.cancel();
+			break;
 		}
+		
 
 	}
 
@@ -554,7 +568,7 @@ public class ListView_CheckBoxActivity extends TabActivity implements
 				long arg3) {
 			// TODO Auto-generated method stub
 			JsonModelAsynTask asyn = new JsonModelAsynTask();
-			
+
 		    asyn.execute(category[arg2]);
 
 		}
@@ -596,12 +610,12 @@ public class ListView_CheckBoxActivity extends TabActivity implements
 				assert view != null;
 				holder.imageView = (ImageView) view.findViewById(R.id.image);
 				holder.progressBar = (ProgressBar) view.findViewById(R.id.progress);
-			
+
 				view.setTag(holder);
 			} else {
 				holder = (ViewHolder) view.getTag();
 			}
-			
+
 
 			imageLoader.displayImage(arrJsonModel.get(position).getImg_link(), holder.imageView, options, new SimpleImageLoadingListener() {
 										 @Override
@@ -614,13 +628,13 @@ public class ListView_CheckBoxActivity extends TabActivity implements
 										 public void onLoadingFailed(String imageUri, View view,
 												 FailReason failReason) {
 											 holder.progressBar.setVisibility(View.GONE);
-											 
+
 										 }
 
 										 @Override
 										 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
 											 holder.progressBar.setVisibility(View.GONE);
-											
+
 										 }
 									 }, new ImageLoadingProgressListener() {
 										 @Override
@@ -638,7 +652,7 @@ public class ListView_CheckBoxActivity extends TabActivity implements
 			ImageView imageView;
 			ProgressBar progressBar;
 			TextView txtName;
-			
+
 		}
 	}
 	private void createImageCategoryDialog() {
@@ -659,37 +673,47 @@ public class ListView_CheckBoxActivity extends TabActivity implements
         builder.setView(layout);  
         listView = (GridView)layout.findViewById(R.id.gridview);
 	((GridView) listView).setAdapter(new ImageAdapter());
+	 imgClose = (ImageView)layout.findViewById(R.id.close);
+     imgClose.setOnClickListener(this);;
+	
 	listView.setOnItemClickListener(new OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			
+			
 			JsonModel model = arrJsonModel.get(position);
-			
-			
+            if(StorageFileTable.getModelByName(sHelper, model.getCategory(),ListView_CheckBoxActivity.this, model.getName())==false)
+            {
+             
 			  downloaderThread = new DownloaderThread(thisActivity,
 			  model.getZip_link(),model.getCategory(),sHelper,model.getName(),model.getName());
 			  downloaderThread.start();
-			 
+            }
+            else {
+            	Toast.makeText(ListView_CheckBoxActivity.this, "Model is added aldreay", Toast.LENGTH_LONG).show();
+            }
+
 		}
 	});
-	   
+
 	alert = builder.create();
 	alert.show();   
 	}
 	 class JsonModelAsynTask extends AsyncTask<String, Void, Void> {
 		JSONParser jsonParser = new JSONParser();
-		
+
 		ProgressDialog dialog;
-		
-		
-		
-			
-		
+
+
+
+
+
 	    @Override
 	    protected void onPreExecute() {
 	        super.onPreExecute();
 	        // Showing progress dialog
 	        dialog = ProgressDialog.show(ListView_CheckBoxActivity.this, "Download Image", "downloading..");
-	       
+
 
 	    }
 
@@ -711,15 +735,14 @@ public class ListView_CheckBoxActivity extends TabActivity implements
 
 	    @Override
 	    protected void onPostExecute(Void result) {
-	    	
+
 	        super.onPostExecute(result);
 	        createImageCategoryDialog();
 	        dialog.dismiss();
-	        
-	       
+
+
 	    }
 	}
 
-	
-}
 
+}

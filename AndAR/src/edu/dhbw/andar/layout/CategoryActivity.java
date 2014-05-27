@@ -15,12 +15,12 @@ public class CategoryActivity extends Activity{
 		setContentView(R.layout.category_list);
 		Category category_data[] = new Category[]
 		        {/*
-		            new Category(R.drawable.movie_icon, "Điện ảnh"),
-		            new Category(R.drawable.science_icon, "Khoa học"),
-		            new Category(R.drawable.englist_icon, "Tổng hợp"),
-		            new Category(R.drawable.sport_icon, "Thể thao"),
-		            new Category(R.drawable.geography2_icon, "Địa lý"),
-		            new Category(R.drawable.geography_icon, "Tiếng anh")*/
+		            new Category(R.drawable.movie_icon, "Ä�iá»‡n áº£nh"),
+		            new Category(R.drawable.science_icon, "Khoa há»�c"),
+		            new Category(R.drawable.englist_icon, "Tá»•ng há»£p"),
+		            new Category(R.drawable.sport_icon, "Thá»ƒ thao"),
+		            new Category(R.drawable.geography2_icon, "Ä�á»‹a lÃ½"),
+		            new Category(R.drawable.geography_icon, "Tiáº¿ng anh")*/
 		        };
 		       
 		        CategoryAdapter adapter = new CategoryAdapter(this,

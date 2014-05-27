@@ -19,13 +19,17 @@
  */
 package edu.dhbw.andar;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -33,6 +37,7 @@ import android.hardware.Camera;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.os.Debug;
+import android.os.Environment;
 import android.view.Display;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
@@ -48,7 +53,9 @@ import android.widget.RelativeLayout;
 import edu.dhbw.andar.exceptions.AndARRuntimeException;
 import edu.dhbw.andar.interfaces.OpenGLRenderer;
 import edu.dhbw.andar.models.Model3DPhoto;
+import edu.dhbw.andar.util.BaseFileUtil;
 import edu.dhbw.andar.util.IO;
+import edu.dhbw.andar.util.SDCardFileUtil;
 import edu.dhbw.andopenglcam.R;
 
 
@@ -77,6 +84,9 @@ public abstract class AndARActivity extends Activity implements Callback, Uncaug
 	public List<Integer> getModelFromActivityParent;
 	public List<Integer> getPictureFromActivityParent;
 	public List<Model3DPhoto> listMode3DPhoto;
+	AssetManager am;
+	
+	List<String> mapList = null;
 	public AndARActivity() {
 		startPreviewRightAway = true;
 	}
@@ -477,11 +487,12 @@ public abstract class AndARActivity extends Activity implements Callback, Uncaug
 		float leftMarginCenter=display.getWidth()/2;*/
 		RelativeLayout layout1 = new RelativeLayout(this);  
         layout1.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT)); 
-        
+        Model3DPhoto  model;
         float lenght=numberImage2d/2;
       
 		for(int i=0;i<numberImage2d;i++)
-		{
+		{   
+			 model = listMode3DPhoto.get(i);
 			imageView2[i]=new ImageView(this);
 			RelativeLayout.LayoutParams params=new RelativeLayout.LayoutParams(50,50);
 			//params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
@@ -503,8 +514,7 @@ public abstract class AndARActivity extends Activity implements Callback, Uncaug
 			
 			imageView2[i].setId(i+5);
 			
-			
-			//AugmentedModelViewerActivity.imageView2[i].setBackgroundResource(ListView_CheckBoxActivity.model_2D_Picture[ListView_CheckBoxActivity.picture_2D_Choosed.get(i)]);
+		
 			imageView2[i].setVisibility(View.INVISIBLE);
 			layout1.addView(imageView2[i]);
 			
@@ -515,5 +525,14 @@ public abstract class AndARActivity extends Activity implements Callback, Uncaug
 	
         frame.addView(layout1);
 	}
-		
+	public boolean checkIfInAssets(String assetName, String category) {
+		if (mapList == null) {
+			am = getAssets();
+			try {
+				mapList = Arrays.asList(am.list("models/" + category));
+			} catch (IOException e) {
+			}
+		}
+		return mapList.contains(assetName) ? true : false;
+	}	
 }

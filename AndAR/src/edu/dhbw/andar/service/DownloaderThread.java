@@ -42,7 +42,9 @@ import javax.xml.validation.Schema;
 
 import android.os.Environment;
 import android.os.Message;
+import android.widget.Checkable;
 import edu.dhbw.andar.database.SchemaHelper;
+import edu.dhbw.andar.layout.CheckboxAdapter;
 import edu.dhbw.andar.layout.ListView_CheckBoxActivity;
 import edu.dhbw.andar.models.Model3DPhoto;
 import edu.dhbw.andar.models.OBJ_PNG;
@@ -65,6 +67,7 @@ public class DownloaderThread extends Thread {
 	public SchemaHelper sHelper;
 	public OBJ_PNG obj_png;
 	public String nameModel;
+	
 
 	/**
 	 * Instantiates a new DownloaderThread object.
@@ -84,8 +87,9 @@ public class DownloaderThread extends Thread {
 		parentActivity = inParentActivity;
 		this.catagory = category;
 		this.sHelper = sHelper;
-		
+
 		this.nameModel = nameModel;
+		
 	}
 
 	/**
@@ -160,7 +164,7 @@ public class DownloaderThread extends Thread {
 			fileStream.close();
 			inStream.close();
 			unZipIt(input, Environment.getExternalStorageDirectory()
-					+ "/models/" + this.catagory);
+					+ "/models/" + this.catagory+"/"+ this.nameModel);
 			if (isInterrupted()) {
 				// the download was canceled, so let's delete the partially
 				// downloaded file

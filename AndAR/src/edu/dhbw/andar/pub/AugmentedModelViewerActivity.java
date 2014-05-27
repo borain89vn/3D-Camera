@@ -43,6 +43,7 @@ import edu.dhbw.andar.graphics.LightingRenderer;
 import edu.dhbw.andar.graphics.Model3D;
 import edu.dhbw.andar.layout.RandomPosition;
 import edu.dhbw.andar.models.Model;
+import edu.dhbw.andar.models.Model3DPhoto;
 import edu.dhbw.andar.parser.ObjParser;
 import edu.dhbw.andar.parser.ParseException;
 import edu.dhbw.andar.util.AssetsFileUtil;
@@ -87,7 +88,7 @@ public class AugmentedModelViewerActivity extends AndARActivity implements
 	private Model[] music;
 	private Model3D[] model3d;
 	private Model3D[] modelMusic;
-	
+	private Model3DPhoto modelPhoto;
 	private ProgressDialog waitDialog;
 	// choose menu
 	int idMenuButton = -1;
@@ -116,12 +117,7 @@ public class AugmentedModelViewerActivity extends AndARActivity implements
 	// play,pause texture
 	int[] playTexture = { R.drawable.pausetexture, R.drawable.pausetexture };
 	String[] musicFileName = { "music1.obj", "music3.obj", "music2.obj" };
-	/*String[] modelFileName = { "android.obj", "armchair.obj", "asimo.obj",
-			"bench.obj", "chair3.obj", "desk.obj", "dinning_room1.obj",
-			"ext_chair.obj", "jack2.obj", "johnny.obj", "liza3.obj",
-			"macOS.obj", "car_red.obj", "plant.obj", "royalTree.obj",
-			"smallbookshelves.obj", "superman.obj", "table_lamp.obj",
-			"vase1.obj", "vase3.obj", "wardobe1.obj", "wall_e.obj" };*/
+	
 	int loadedModel;
 	AndARActivity andar;
 
@@ -646,17 +642,18 @@ public class AugmentedModelViewerActivity extends AndARActivity implements
 
 	public void loadModel(String fileName) {
 		BaseFileUtil fileUtil = null;
-		String category = listMode3DPhoto.get(0).getCategory();
-		if(checkIfInAssets(fileName,category)==true) {
+		modelPhoto= listMode3DPhoto.get(loadedModel);
+		modelPhoto.context = this;
+		if(checkIfInAssets(fileName,modelPhoto.getCategory())==true) {
 			fileUtil = new AssetsFileUtil(getResources().getAssets());
-			fileUtil.setBaseFolder("models/"+category+"/");
+			fileUtil.setBaseFolder("models/"+modelPhoto.getCategory()+"/");
 		}
 		else {
 		fileUtil = new SDCardFileUtil();
 
 		File modelFile = Environment.getExternalStorageDirectory();
 
-		fileUtil.setBaseFolder(modelFile.getName() + "/models/");
+		fileUtil.setBaseFolder(modelFile.getName() + "/models/"+modelPhoto.getCategory()+"/"+listMode3DPhoto.get(loadedModel).getName()+"/");
 		}
 
 		ObjParser parser = new ObjParser(fileUtil);
@@ -726,6 +723,7 @@ public class AugmentedModelViewerActivity extends AndARActivity implements
 			super.onPostExecute(result);
 			waitDialog.dismiss();
 			displayModel();
+		
 			if (loadedModel == 1) {
 				startPreview();
 				Size cameraSize = camera.getParameters().getPreviewSize();
@@ -752,7 +750,7 @@ public class AugmentedModelViewerActivity extends AndARActivity implements
 					e.printStackTrace();
 				}
 
-				for (int i = 0; i < 3; i++) {
+				/*for (int i = 0; i < 3; i++) {
 					modelMusic[i] = new Model3D(music[i], pattName[1],
 							randPostion.getNextInt(-50, 50),
 							randPostion.getNextInt(-50, 50));
@@ -765,7 +763,7 @@ public class AugmentedModelViewerActivity extends AndARActivity implements
 						e.printStackTrace();
 					}
 
-				}
+				}*/
 
 			} else {
 				randomXModel3d = randPostion.getNextInt(-150, 150);
@@ -788,7 +786,25 @@ public class AugmentedModelViewerActivity extends AndARActivity implements
 				// invisibleMenuButton();
 				// startThread();
 			}
-			// imageView[loadedModel-1].setBackgroundResource(pics[getModelFromActivity.get(loadedModel-1)]);
+			
+			if (checkIfInAssets(modelPhoto.getPngName(), modelPhoto.getCategory())) {
+				imageView[loadedModel-1].setBackgroundDrawable(modelPhoto
+						.getDrawable("models/" + modelPhoto.getCategory() + "/"
+								+ modelPhoto.getPngName()));
+			} else {
+				BaseFileUtil fileUtil = null;
+
+				fileUtil = new SDCardFileUtil();
+
+				File modelFile = Environment.getExternalStorageDirectory();
+
+				fileUtil.setBaseFolder(modelFile.getName() + "/models/"
+						+ modelPhoto.getCategory() + "/"+modelPhoto.getName()+"/");
+				imageView[loadedModel-1].setImageBitmap(fileUtil
+						.getBitmapFromName(modelPhoto.getPngName()));
+			}
+			
+			
 		}
 	}
 

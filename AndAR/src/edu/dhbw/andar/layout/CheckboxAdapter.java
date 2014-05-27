@@ -20,6 +20,8 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+import edu.dhbw.andar.database.SchemaHelper;
+import edu.dhbw.andar.database.StorageFileTable;
 import edu.dhbw.andar.models.Model3DPhoto;
 import edu.dhbw.andar.util.AssetsFileUtil;
 import edu.dhbw.andar.util.BaseFileUtil;
@@ -33,11 +35,14 @@ public class CheckboxAdapter extends BaseAdapter {
 	AssetManager am;
 	HashMap<Integer, Boolean> state;
 	List<String> mapList = null;
+	SchemaHelper sHelper;
 
-	public CheckboxAdapter(Context context, ArrayList<Model3DPhoto> listData) {
+	public CheckboxAdapter(Context context, ArrayList<Model3DPhoto> listData,SchemaHelper sHelper) {
 		this.context = context;
 		this.listData = listData;
 		state = new HashMap<Integer, Boolean>();
+		this.sHelper = sHelper;
+		
 
 	}
 
@@ -76,7 +81,7 @@ public class CheckboxAdapter extends BaseAdapter {
 					.findViewById(R.id.model_name_3d);
 			viewHolder.txtView.setText((String) listData.get(position)
 					.getName());
-
+            viewHolder.imgDelete = (ImageView)convertView.findViewById(R.id.img_delete);
 			viewHolder.chekBox = (CheckBox) convertView
 					.findViewById(R.id.selected_model_3d);
 			viewHolder.chekBox
@@ -92,6 +97,17 @@ public class CheckboxAdapter extends BaseAdapter {
 							}
 						}
 					});
+			viewHolder.imgDelete.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Model3DPhoto model = listData.get(position);
+					// TODO Auto-generated method stub
+					StorageFileTable.deleteModel(model, sHelper, model.getCategory(), context, model.getObjName());
+					listData.remove(position);
+					notifyDataSetChanged();
+				}
+			});
 			viewHolder.chekBox.setChecked((state.get(position) == null ? false
 					: true));
 			if (checkIfInAssets(model.getPngName(), model.getCategory())) {
@@ -106,7 +122,7 @@ public class CheckboxAdapter extends BaseAdapter {
 				File modelFile = Environment.getExternalStorageDirectory();
 
 				fileUtil.setBaseFolder(modelFile.getName() + "/models/"
-						+ model.getCategory() + "/");
+						+ model.getCategory() + "/"+model.getName()+"/");
 				viewHolder.imgView.setImageBitmap(fileUtil
 						.getBitmapFromName(model.getPngName()));
 			}
@@ -131,5 +147,6 @@ public class CheckboxAdapter extends BaseAdapter {
 		ImageView imgView;
 		TextView txtView;
 		CheckBox chekBox;
+		ImageView imgDelete;
 	}
 }

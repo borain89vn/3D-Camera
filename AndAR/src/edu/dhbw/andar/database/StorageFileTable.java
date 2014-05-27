@@ -1,10 +1,12 @@
 package edu.dhbw.andar.database;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
 import edu.dhbw.andar.models.Model3DPhoto;
 
 public class StorageFileTable {
@@ -37,5 +39,26 @@ public class StorageFileTable {
 		sqlWriter.close();
 		helper.close();
 		return listModel;
+	}
+	public static boolean getModelByName(SchemaHelper helper,String category,Context context,String name) {
+		boolean isNull = false;
+		String sql = "SELECT *from " + TABLE_NAME + " where category = " +"'"+category+"' "+" AND name="+"'"+name+"'";
+	    SQLiteDatabase sqlWriter = helper.getWritableDatabase();
+	    Cursor c = sqlWriter.rawQuery(sql, null);
+	    if(c.moveToFirst()==true)
+	    {
+	    	isNull = true;
+	    }
+	    return isNull;
+	    
+	    
+	}
+	public static void deleteModel(Model3DPhoto model,SchemaHelper sHelper,String category,Context context,String objName){
+		String sql = "DELETE  from " + TABLE_NAME + " where category = " +"'"+category+"' "+" AND obj_file ="+"'"+objName+"'";
+		SQLiteDatabase sqlWriter = sHelper.getWritableDatabase();
+		sqlWriter.execSQL(sql);
+		sqlWriter.close();
+		File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/models/"+model.getCategory()+"/"+model.getName());
+		file.delete();
 	}
 }
